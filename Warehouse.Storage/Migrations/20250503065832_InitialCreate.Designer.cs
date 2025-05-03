@@ -11,7 +11,7 @@ using Warehouse.Storage;
 
 namespace Warehouse.Storage.Migrations
 {
-    [DbContext(typeof(WearhouseDbContext))]
+    [DbContext(typeof(WarehouseDbContext))]
     [Migration("20250503065832_InitialCreate")]
     partial class InitialCreate
     {

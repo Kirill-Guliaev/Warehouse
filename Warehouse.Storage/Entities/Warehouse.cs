@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Warehouse.Storage.Entities;
 
-public class Wearhouse
+public class Warehouse
 {
     [Key]
-    public Guid WearhouseId { get; set; }
+    public Guid WarehouseId { get; set; }
 
     public int StorageVolume { get; set; }
 
@@ -15,6 +15,6 @@ public class Wearhouse
     [ForeignKey(nameof(OwnerId))]
     public Person Owner{ get; set; }
 
-    [InverseProperty(nameof(Item.Wearhouse))]
+    [InverseProperty(nameof(Item.Warehouse))]
     public ICollection<Item> Items { get; set; }
 }

@@ -14,6 +14,6 @@ public class Person
     [InverseProperty(nameof(Item.Owner))]
     public ICollection<Item> Items { get; set; }
 
-    [InverseProperty(nameof(Wearhouse.Owner))]
-    public ICollection<Wearhouse> Wearhouses { get; set; }
+    [InverseProperty(nameof(Warehouse.Owner))]
+    public ICollection<Warehouse> Warehouses { get; set; }
 }

@@ -12,13 +12,13 @@ public class Item
 
     public Guid OwnerId { get; set; }
 
-    public Guid WearhouseId { get; set; }
+    public Guid WarehouseId { get; set; }
 
     [ForeignKey(nameof(OwnerId))]
     public Person Owner { get; set; }
 
-    [ForeignKey(nameof(WearhouseId))]
-    public Wearhouse Wearhouse { get; set; }
+    [ForeignKey(nameof(WarehouseId))]
+    public Warehouse Warehouse { get; set; }
 
 
 }
