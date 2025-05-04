@@ -19,6 +19,8 @@ public class Item
 
     public Guid WarehouseId { get; set; }
 
+    public DateTime? CheckedOutAt { get; set; }
+
     [ForeignKey(nameof(OwnerId))]
     public Person Owner { get; set; } = null!;
 

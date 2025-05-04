@@ -17,5 +17,5 @@ public interface IEditWarehouseStorage
     /// </summary>
     /// <param name="warehouseId"></param>
     /// <returns></returns>
-    Task<Models.Warehouse> GetWarehouseAsync(Guid warehouseId);
+    Task<Models.Warehouse> GetWarehouseAsync(Guid warehouseId, CancellationToken cancellationToken);
 }

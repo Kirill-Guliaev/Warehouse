@@ -2,6 +2,7 @@
 using Swashbuckle.AspNetCore.Annotations;
 using Warehouse.Api.Models.Requests;
 using Warehouse.Domain.UseCases.AcceptRegisteredItem;
+using Warehouse.Domain.UseCases.CheckoutItem;
 using Warehouse.Domain.UseCases.EditWarehouse;
 using Warehouse.Domain.UseCases.GetReportWarehouse;
 using Warehouse.Domain.UseCases.OpenWarehouse;
@@ -69,6 +70,22 @@ public class WarehouseController : ControllerBase
     {
         await useCase.ExecuteAsync(new GetReportWarehouseCommand(), cancellationToken);//подумать какой формат возвращать
         return Ok();
+
+    }
+
+    [HttpPost(nameof(CheckoutIteme))]
+    [SwaggerOperation(
+        Summary = "Выписать предмет со склада",
+        Description = "Может выполнять только работник склада.",
+        OperationId = "CheckoutIteme",
+        Tags = new[] { "Warehouse" })]
+    public async Task<IActionResult> CheckoutIteme(
+        [FromServices] ICheckoutItemUseCase useCase,
+        [FromBody] CheckoutItemRequest request,
+        CancellationToken cancellationToken)
+    {
+        var resItem = await useCase.ExecuteAsync(new CheckoutItemCommand(request.ItemId, request.WarehouseId), cancellationToken);
+        return Ok(resItem);
 
     }
 }

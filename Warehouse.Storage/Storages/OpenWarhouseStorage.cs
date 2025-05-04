@@ -15,7 +15,7 @@ public class OpenWarhouseStorage : IOpenWarhouseStorage
 
     public async Task<Domain.Models.Warehouse> OpenWarhouseAsync(Guid userId, int price, int size, CancellationToken cancellationToken)
     {
-        var owner = await dbContext.Persons.FirstOrDefaultAsync(u => u.PersonId == userId)
+        var owner = await dbContext.Persons.FirstOrDefaultAsync(u => u.PersonId == userId, cancellationToken)
             ?? throw new Exception("User not found");
         var newWarehouse = new Entities.Warehouse()
         {
@@ -24,7 +24,7 @@ public class OpenWarhouseStorage : IOpenWarhouseStorage
             PriceForUnit = price,
         };
         owner.Warehouses.Add(newWarehouse);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
         return newWarehouse.ToWarehouse(size);
     }
 }

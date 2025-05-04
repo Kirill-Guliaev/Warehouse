@@ -26,13 +26,13 @@ public class RegisterItemStorage : IRegisterItemStorage
             WarehouseId = warehouseId
         };
         await warehouseDbContext.Items.AddAsync(newItem);
-        await warehouseDbContext.SaveChangesAsync();
+        await warehouseDbContext.SaveChangesAsync(cancellationToken);
         return newItem.ToItem();
     }
 
     public async Task ThrowIfWarehouseNotAvailable(Guid warehouseId, int size, CancellationToken cancellationToken)
     {
-        var warehouse = await warehouseDbContext.Warehouses.FirstOrDefaultAsync(w => w.WarehouseId == warehouseId)
+        var warehouse = await warehouseDbContext.Warehouses.FirstOrDefaultAsync(w => w.WarehouseId == warehouseId, cancellationToken)
            ?? throw new Exception("warehouse is not found");
         var sum = warehouse.Items.Sum(i => i.Size);
         if(sum + size > warehouse.StorageVolume)

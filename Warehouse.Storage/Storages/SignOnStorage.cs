@@ -16,8 +16,8 @@ public class SignOnStorage : ISignOnStorage
 
     public async Task<Guid> CreateUserAsync(string login, CancellationToken cancellationToken)
     {
-        var newPerson = await dbContext.Persons.AddAsync(new Entities.Person() { Login = login, PersonId = Guid.NewGuid() });
-        await dbContext.SaveChangesAsync();
+        var newPerson = await dbContext.Persons.AddAsync(new Entities.Person() { Login = login, PersonId = Guid.NewGuid() }, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
         return newPerson.Entity.PersonId;
     }
 

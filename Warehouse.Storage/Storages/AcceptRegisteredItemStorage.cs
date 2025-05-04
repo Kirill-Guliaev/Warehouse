@@ -1,4 +1,5 @@
-﻿using Warehouse.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Warehouse.Domain.Models;
 using Warehouse.Domain.UseCases.AcceptRegisteredItem;
 using Warehouse.Storage.Mapper;
 
@@ -15,13 +16,9 @@ public class AcceptRegisteredItemStorage : IAcceptRegisteredItemStorage
 
     public async Task<Item> AcceptRegisteredItemAsync(Guid id, CancellationToken cancellationToken)
     {
-        var item = dbContext.Items.FirstOrDefault(i => i.ItemId == id);
-        if(item is null)
-        {
-            throw new Exception("Item not found");
-        }
+        var item = await dbContext.Items.FirstOrDefaultAsync(i => i.ItemId == id, cancellationToken) ?? throw new Exception("Item not found");
         item.ArrivedAt = DateTime.UtcNow;
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
         return item.ToItem();
     }
 }

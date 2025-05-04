@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Warehouse.Domain.Models;
 using Warehouse.Domain.UseCases.EditWarehouse;
 using Warehouse.Storage.Entities;
 using Warehouse.Storage.Mapper;
@@ -17,7 +16,7 @@ public class EditWarehouseStorage : IEditWarehouseStorage
 
     public async Task<Domain.Models.Warehouse> EditWarehouseAsync(Guid warehouseId, int newPrice, int newSize, CancellationToken cancellationToken)
     {
-        var warehouse = dbContext.Warehouses.FirstOrDefault(w => w.WarehouseId == warehouseId)
+        var warehouse = await dbContext.Warehouses.FirstOrDefaultAsync(w => w.WarehouseId == warehouseId, cancellationToken)
             ?? throw new Exception("Warehouse is null");
         warehouse.StorageVolume = newSize;
         warehouse.PriceForUnit = newPrice;
@@ -25,11 +24,11 @@ public class EditWarehouseStorage : IEditWarehouseStorage
         return warehouse.ToWarehouse(warehouse.GetAvailableSpace());
     }
 
-    public async Task<Domain.Models.Warehouse> GetWarehouseAsync(Guid warehouseId)
+    public async Task<Domain.Models.Warehouse> GetWarehouseAsync(Guid warehouseId, CancellationToken cancellationToken)
     {
         var res = await dbContext.Warehouses
             .Include(w=>w.Items)
-            .FirstOrDefaultAsync(w => w.WarehouseId == warehouseId)
+            .FirstOrDefaultAsync(w => w.WarehouseId == warehouseId, cancellationToken)
             ?? throw new Exception("Warehouse is null");
         return res.ToWarehouse(res.GetAvailableSpace());
     }

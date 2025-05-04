@@ -25,7 +25,7 @@ public class EditWarehouseUseCase : IEditWarehouseUseCase
     {
         await validator.ValidateAndThrowAsync(editWarehouseCommand, cancellationToken);
         intentionManager.ThrowIfForbidden(WarehouseIntention.Manage);
-        var myWarehouse = await editWarehouseStorage.GetWarehouseAsync(editWarehouseCommand.WarehouseId);
+        var myWarehouse = await editWarehouseStorage.GetWarehouseAsync(editWarehouseCommand.WarehouseId, cancellationToken);
         var newPrice = editWarehouseCommand.NewPrice ?? myWarehouse.Price;
         if (editWarehouseCommand.NewSize is not null)
         {
