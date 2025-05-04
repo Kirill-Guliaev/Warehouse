@@ -74,6 +74,8 @@ app.Services.GetRequiredService<WarehouseDbContext>().Database.Migrate();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseMiddleware<AuthenticationMiddleware>();
 
 //app.UseHttpsRedirection();
