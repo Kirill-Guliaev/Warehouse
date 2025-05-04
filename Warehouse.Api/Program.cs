@@ -18,8 +18,14 @@ using Warehouse.Domain.UseCases.SignOn;
 using Warehouse.Domain.UseCases.UnpaidItems;
 using Warehouse.Storage;
 using Warehouse.Storage.Storages;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+builder.Host.UseSerilog();
 
 builder.Services.AddControllers();
 
@@ -73,6 +79,8 @@ app.Services.GetRequiredService<WarehouseDbContext>().Database.Migrate();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<RequestLoggingMiddleware>();
