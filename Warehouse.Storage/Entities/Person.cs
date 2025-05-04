@@ -9,11 +9,11 @@ public class Person
     public Guid PersonId { get; set; }
 
     [MaxLength(50)]
-    public string Login { get; set; }
+    public string Login { get; set; } = null!;
 
     [InverseProperty(nameof(Item.Owner))]
-    public ICollection<Item> Items { get; set; }
+    public ICollection<Item> Items { get; set; } = new List<Item>();
 
     [InverseProperty(nameof(Warehouse.Owner))]
-    public ICollection<Warehouse> Warehouses { get; set; }
+    public ICollection<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
 }

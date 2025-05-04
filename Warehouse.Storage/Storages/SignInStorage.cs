@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Warehouse.Domain.Authentication;
-using Warehouse.Domain.Models;
 using Warehouse.Domain.UseCases.SignIn;
 using Warehouse.Storage.Mapper;
 

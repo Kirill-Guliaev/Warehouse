@@ -23,6 +23,6 @@ public class SignOnStorage : ISignOnStorage
 
     public async Task<IIdentity?> FindUserAsync(string login, CancellationToken cancellationToken)
     {
-        return (await dbContext.Persons.SingleOrDefaultAsync(u => u.Login == login, cancellationToken))?.ToUser();
+        return (await dbContext.Persons.FirstOrDefaultAsync(u => u.Login == login, cancellationToken))?.ToUser();
     }
 }
