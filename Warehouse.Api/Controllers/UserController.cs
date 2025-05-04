@@ -4,6 +4,7 @@ using Warehouse.Api.Models.Requests;
 using Warehouse.Domain.Models;
 using Warehouse.Domain.UseCases.GetUserItems;
 using Warehouse.Domain.UseCases.RegisterItem;
+using Warehouse.Domain.UseCases.UnpaidItems;
 
 namespace Warehouse.Api.Controllers;
 
@@ -41,5 +42,22 @@ public class UserController : ControllerBase
     {
         var resultItem = await useCase.ExecuteAsync(new RegisterItemCommand(request.Name, request.Size, request.WarehouseId), cancellationToken);
         return Ok(resultItem);
+    }
+
+
+    [HttpGet(nameof(UnpaidItems))]
+    [SwaggerOperation(
+       Summary = "Получить список предметов которые нужно оплатить.",
+       Description = "",
+       OperationId = "UnpaidItems",
+       Tags = new[] { "User" })]
+    public async Task<IActionResult> UnpaidItems(
+       [FromServices] IUnpaidItemsUseCase useCase,
+       [FromServices] IIdentityProvider identityProvider,
+       CancellationToken cancellationToken)
+    {
+        var items = await useCase.ExecuteAsync(new UnpaidItemsCommand(identityProvider.Current.UserId), cancellationToken);
+        return Ok(items);
+
     }
 }

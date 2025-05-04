@@ -15,6 +15,7 @@ using Warehouse.Domain.UseCases.OpenWarehouse;
 using Warehouse.Domain.UseCases.RegisterItem;
 using Warehouse.Domain.UseCases.SignIn;
 using Warehouse.Domain.UseCases.SignOn;
+using Warehouse.Domain.UseCases.UnpaidItems;
 using Warehouse.Storage;
 using Warehouse.Storage.Storages;
 
@@ -37,6 +38,7 @@ builder.Services
      .AddScoped<IAcceptRegisteredItemStorage, AcceptRegisteredItemStorage>()
      .AddScoped<ICheckoutItemStorage, CheckoutItemStorage>()
      .AddScoped<IConfirmPayItemStorage, ConfirmPayItemStorage>()
+     .AddScoped<IUnpaidItemsStorage, UnpaidItemsStorage>()
      ;
 
 builder.Services
@@ -50,6 +52,7 @@ builder.Services
     .AddScoped<IOpenWarehouseUseCase, OpenWarehouseUseCase>()
     .AddScoped<ICheckoutItemUseCase, CheckoutItemUseCase>()
     .AddScoped<IConfirmPayItemUseCase, ConfirmPayItemUseCase>()
+    .AddScoped<IUnpaidItemsUseCase, UnpaidItemsUseCase>()
     ;
 
 

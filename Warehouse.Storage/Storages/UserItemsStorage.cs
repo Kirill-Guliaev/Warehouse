@@ -18,6 +18,6 @@ public class UserItemsStorage : IUserItemsStorage
     {
         var person = await warehouseDbContext.Persons.Include(p => p.Items).FirstOrDefaultAsync(x => x.PersonId == userId)
             ?? throw new Exception("User not found");
-        return person.Items.Select(i => i.ToItem());
+        return person.Items.Where(i => !i.IsPaid && i.CheckedOutAt is null).Select(i => i.ToItem());
     }
 }
