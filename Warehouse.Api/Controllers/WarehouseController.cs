@@ -3,6 +3,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Warehouse.Api.Models.Requests;
 using Warehouse.Domain.UseCases.AcceptRegisteredItem;
 using Warehouse.Domain.UseCases.CheckoutItem;
+using Warehouse.Domain.UseCases.ConfirmPay;
 using Warehouse.Domain.UseCases.EditWarehouse;
 using Warehouse.Domain.UseCases.GetReportWarehouse;
 using Warehouse.Domain.UseCases.OpenWarehouse;
@@ -73,18 +74,34 @@ public class WarehouseController : ControllerBase
 
     }
 
-    [HttpPost(nameof(CheckoutIteme))]
+    [HttpPost(nameof(CheckoutItem))]
     [SwaggerOperation(
         Summary = "Выписать предмет со склада",
         Description = "Может выполнять только работник склада.",
         OperationId = "CheckoutIteme",
         Tags = new[] { "Warehouse" })]
-    public async Task<IActionResult> CheckoutIteme(
+    public async Task<IActionResult> CheckoutItem(
         [FromServices] ICheckoutItemUseCase useCase,
         [FromBody] CheckoutItemRequest request,
         CancellationToken cancellationToken)
     {
         var resItem = await useCase.ExecuteAsync(new CheckoutItemCommand(request.ItemId, request.WarehouseId), cancellationToken);
+        return Ok(resItem);
+
+    }
+
+    [HttpPost(nameof(ConfirmPayItem))]
+    [SwaggerOperation(
+        Summary = "Отметить предмет как оплаченный",
+        Description = "Может выполнять только работник склада.",
+        OperationId = "ConfirmPayItem",
+        Tags = new[] { "Warehouse" })]
+    public async Task<IActionResult> ConfirmPayItem(
+    [FromServices] IConfirmPayItemUseCase useCase,
+    [FromBody] ConfrimPaidItemRequest request,
+    CancellationToken cancellationToken)
+    {
+        var resItem = await useCase.ExecuteAsync(new ConfirmPayItemCommand(request.ItemId, request.WarehouseId), cancellationToken);
         return Ok(resItem);
 
     }

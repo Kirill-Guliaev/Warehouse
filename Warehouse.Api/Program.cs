@@ -7,6 +7,7 @@ using Warehouse.Domain.Authorization;
 using Warehouse.Domain.IntentionResolvers;
 using Warehouse.Domain.UseCases.AcceptRegisteredItem;
 using Warehouse.Domain.UseCases.CheckoutItem;
+using Warehouse.Domain.UseCases.ConfirmPay;
 using Warehouse.Domain.UseCases.EditWarehouse;
 using Warehouse.Domain.UseCases.GetReportWarehouse;
 using Warehouse.Domain.UseCases.GetUserItems;
@@ -35,6 +36,7 @@ builder.Services
      .AddScoped<IEditWarehouseStorage, EditWarehouseStorage>()
      .AddScoped<IAcceptRegisteredItemStorage, AcceptRegisteredItemStorage>()
      .AddScoped<ICheckoutItemStorage, CheckoutItemStorage>()
+     .AddScoped<IConfirmPayItemStorage, ConfirmPayItemStorage>()
      ;
 
 builder.Services
@@ -47,6 +49,7 @@ builder.Services
     .AddScoped<IGetReportWarehouseUseCase, GetReportWarehouseUseCase>()
     .AddScoped<IOpenWarehouseUseCase, OpenWarehouseUseCase>()
     .AddScoped<ICheckoutItemUseCase, CheckoutItemUseCase>()
+    .AddScoped<IConfirmPayItemUseCase, ConfirmPayItemUseCase>()
     ;
 
 

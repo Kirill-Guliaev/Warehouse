@@ -21,6 +21,8 @@ public class Item
 
     public DateTime? CheckedOutAt { get; set; }
 
+    public bool IsPaid { get; set; }
+
     [ForeignKey(nameof(OwnerId))]
     public Person Owner { get; set; } = null!;
 

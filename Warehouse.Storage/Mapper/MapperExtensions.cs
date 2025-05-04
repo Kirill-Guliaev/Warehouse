@@ -11,7 +11,7 @@ internal static class MapperExtensions
 
     internal static Domain.Models.Item ToItem(this Entities.Item item)
     {
-        return new Domain.Models.Item(item.ItemId, item.Name, item.Size, item.WarehouseId, item.ArrivedAt, item.CheckedOutAt);
+        return new Domain.Models.Item(item.ItemId, item.Name, item.Size, item.WarehouseId, item.ArrivedAt, item.CheckedOutAt, item.IsPaid);
     }
 
     internal static Domain.Models.Warehouse ToWarehouse(this Entities.Warehouse item, int freeSize)
