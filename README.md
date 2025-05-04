@@ -44,3 +44,16 @@ Api для работы с сущностью Склад.
 Логи пишутся в:
 - Консоль (структурированный вывод).
 - Файлы в папке Logs/.
+
+p.s. Не успеваю разобраться с докером. Надеюсь, получится запустить без него.
+
+1) Настройте строку подключения в appsettings.json:
+"ConnectionStrings": {
+  "Default": "Host=localhost;Database=warehouse;Username=postgres;Password=your_password"
+}
+
+2) Примените миграции:
+dotnet ef database update
+
+3) Запустите проект:
+dotnet run --project Warehouse.API
