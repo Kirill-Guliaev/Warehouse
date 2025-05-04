@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Warehouse.Api.Models.Requests;
+using Warehouse.Api.Models.Responses;
 using Warehouse.Domain.UseCases.AcceptRegisteredItem;
 using Warehouse.Domain.UseCases.CheckoutItem;
 using Warehouse.Domain.UseCases.ConfirmPay;
@@ -61,16 +62,17 @@ public class WarehouseController : ControllerBase
 
     [HttpGet(nameof(GetReportWarehouse))]
     [SwaggerOperation(
-        Summary = "Получить отчет о своем складе",
-        Description = "Может выполнять только владелец склада.",
+        Summary = "Получить отчет о своем складе.",
+        Description = "Может выполнять только владелец склада. Самый просто пример отчета. Сколько товаров оплачено, сколько не оплачено, сколько места занято на складе.",
         OperationId = "GetReportWarehouse",
         Tags = new[] { "Warehouse" })]
     public async Task<IActionResult> GetReportWarehouse(
     [FromServices] IGetReportWarehouseUseCase useCase,
+    [FromQuery] WarehouseReportRequest request,
     CancellationToken cancellationToken)
     {
-        await useCase.ExecuteAsync(new GetReportWarehouseCommand(), cancellationToken);//подумать какой формат возвращать
-        return Ok();
+        (int paidItems, int unpaidItems, int reservedPlaces) = await useCase.ExecuteAsync(new GetReportWarehouseCommand(request.WarehouseId), cancellationToken);
+        return Ok(new SimpleWarehouseReport(paidItems, unpaidItems, reservedPlaces));
 
     }
 
