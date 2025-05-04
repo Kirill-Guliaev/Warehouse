@@ -1,6 +1,6 @@
-﻿using System.Security.Principal;
+﻿using Warehouse.Domain.Authentication;
 
-internal class IdentityProvider : IIdentityProvider
+public class IdentityProvider : IIdentityProvider
 {
     public IIdentity Current { get; set; }
 }

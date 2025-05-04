@@ -21,6 +21,6 @@ public class SignOnUseCase : ISignOnUseCase
             throw new ValidationException("User not found");
         }
         var userId = await storage.CreateUserAsync(command.Login, cancellationToken);
-        return new User(userId, command.Login);
+        return new User(userId);
     }
 }
