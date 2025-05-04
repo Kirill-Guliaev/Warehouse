@@ -25,6 +25,6 @@ public static class WarehouseExtension
 {
     public static int GetAvailableSpace(this Warehouse warehouse)
     {
-        return warehouse.StorageVolume - warehouse.Items.Sum(i => i.Size);
+        return warehouse.StorageVolume - warehouse.Items.Where(i => !i.CheckedOutAt.HasValue).Sum(i => i.Size);
     }
 }
