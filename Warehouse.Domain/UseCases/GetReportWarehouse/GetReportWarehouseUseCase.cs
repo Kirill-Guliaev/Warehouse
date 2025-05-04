@@ -24,7 +24,7 @@ public class GetReportWarehouseUseCase : IGetReportWarehouseUseCase
     public async Task<(int PaidItems, int UnpaidItems, int ReservedPlaces)> ExecuteAsync(GetReportWarehouseCommand command, CancellationToken cancellationToken)
     {
         await validator.ValidateAndThrowAsync(command, cancellationToken);
-        intentionManager.ThrowIfForbidden(WarehouseIntention.Work);
+        intentionManager.ThrowIfForbidden(WarehouseIntention.Manage);
         return await storage.ReportAsync(command.WarehouseId, cancellationToken);
     }
 }
