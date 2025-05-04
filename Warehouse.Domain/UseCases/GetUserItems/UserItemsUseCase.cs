@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Warehouse.Domain.Authorization;
+using Warehouse.Domain.Intentions;
 using Warehouse.Domain.Models;
-using Warehouse.Domain.UseCases.RegisterItem;
 
 namespace Warehouse.Domain.UseCases.GetUserItems;
 

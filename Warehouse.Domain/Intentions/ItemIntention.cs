@@ -1,4 +1,4 @@
-﻿namespace Warehouse.Domain.UseCases.RegisterItem;
+﻿namespace Warehouse.Domain.Intentions;
 
 public enum ItemIntention
 {

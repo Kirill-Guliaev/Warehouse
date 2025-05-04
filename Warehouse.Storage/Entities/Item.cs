@@ -8,7 +8,7 @@ public class Item
     [Key]
     public Guid ItemId { get; set; }
 
-    public DateTime ArrivedAt { get; set; }
+    public DateTime? ArrivedAt { get; set; } = null;
 
     [MaxLength(100)]
     public string Name { get; set; }

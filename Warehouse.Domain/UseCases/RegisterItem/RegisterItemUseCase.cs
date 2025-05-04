@@ -1,6 +1,7 @@
 ﻿using Warehouse.Domain.Models;
 using FluentValidation;
 using Warehouse.Domain.Authorization;
+using Warehouse.Domain.Intentions;
 
 namespace Warehouse.Domain.UseCases.RegisterItem;
 

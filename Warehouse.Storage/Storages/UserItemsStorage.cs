@@ -16,7 +16,7 @@ public class UserItemsStorage : IUserItemsStorage
 
     public async Task<IEnumerable<Item>> GetItemsAsync(Guid userId, CancellationToken cancellationToken)
     {
-        var person = await warehouseDbContext.Persons.FirstOrDefaultAsync(x => x.PersonId == userId)
+        var person = await warehouseDbContext.Persons.Include(p => p.Items).FirstOrDefaultAsync(x => x.PersonId == userId)
             ?? throw new Exception("User not found");
         return person.Items.Select(i => i.ToItem());
     }

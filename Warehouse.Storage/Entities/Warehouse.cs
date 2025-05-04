@@ -10,11 +10,21 @@ public class Warehouse
 
     public int StorageVolume { get; set; }
 
+    public int PriceForUnit { get; set; }
+
     public Guid OwnerId { get; set; }
 
     [ForeignKey(nameof(OwnerId))]
-    public Person Owner{ get; set; }
+    public Person Owner { get; set; } = null!;
 
     [InverseProperty(nameof(Item.Warehouse))]
-    public ICollection<Item> Items { get; set; }
+    public ICollection<Item> Items { get; set; } = new List<Item>();
+}
+
+public static class WarehouseExtension
+{
+    public static int GetAvailableSpace(this Warehouse warehouse)
+    {
+        return warehouse.StorageVolume - warehouse.Items.Sum(i => i.Size);
+    }
 }

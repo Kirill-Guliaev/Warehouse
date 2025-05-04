@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Warehouse.Storage;
@@ -11,9 +12,11 @@ using Warehouse.Storage;
 namespace Warehouse.Storage.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    partial class WearhouseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250504123553_PriceForWarehouse")]
+    partial class PriceForWarehouse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +31,7 @@ namespace Warehouse.Storage.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("ArrivedAt")
+                    b.Property<DateTime>("ArrivedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")

@@ -1,5 +1,3 @@
 ﻿namespace Warehouse.Domain.Models;
 
-public class Warehouse
-{
-}
+public record Warehouse(Guid Id, int Price, int Size, int FreeSize);

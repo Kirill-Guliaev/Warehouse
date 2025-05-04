@@ -22,13 +22,12 @@ public class RegisterItemStorage : IRegisterItemStorage
             Size = size,
             Name = name,
             OwnerId = userId,
-            ItemId = itemId
+            ItemId = itemId,
+            WarehouseId = warehouseId
         };
-        var warehouse = await warehouseDbContext.Warehouses.FirstOrDefaultAsync(w => w.WarehouseId == warehouseId)
-            ?? throw new Exception("warehouse is not found");
-        warehouse.Items.Add(newItem);
+        await warehouseDbContext.Items.AddAsync(newItem);
         await warehouseDbContext.SaveChangesAsync();
-        return newItem.ToItem();//todo проверить что в id склада записался нужный
+        return newItem.ToItem();
     }
 
     public async Task ThrowIfWarehouseNotAvailable(Guid warehouseId, int size, CancellationToken cancellationToken)
